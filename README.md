@@ -107,12 +107,6 @@ Cada sprint foi finalizada com a entrega de um **vídeo de até 3 minutos**, dem
 
 ---
 
-## 📎 Link do Projeto ELLP
-
-🔗 [Projeto ELLP UTFPR](https://www.utfpr.edu.br/campus/cornelioprocopio/extensao/atividades-extensao/projeto-deextensao-ellp-ensino-ludico-de-logica-e-programacao)
-
----
-
 
 
 > Este projeto representa uma importante oportunidade de consolidação de conhecimentos e aplicação prática dos conteúdos do curso de Engenharia de Software, aproximando teoria, prática e impacto social por meio da extensão universitária.
