@@ -1,0 +1,26 @@
+backend/
+│
+├── src/
+│   ├── config/                # Configuração do Sequelize e ambiente
+│   │   └── database.js
+│   ├── controllers/           # Camada de controle (Express routes handlers)
+│   │   └── curso.controller.js
+│   ├── services/              # Lógica de negócio
+│   │   └── curso.service.js
+│   ├── repositories/          # Acesso ao banco via Sequelize
+│   │   └── curso.repository.js
+│   ├── models/                # Definição das tabelas (Sequelize Models)
+│   │   └── curso.model.js
+│   ├── dtos/                  # Transporte de dados entre camadas
+│   │   └── curso.dto.js
+│   ├── routes/                # Rotas da aplicação
+│   │   └── curso.routes.js
+│   ├── middleware/            # JWT, autenticação, logs, etc.
+│   ├── utils/                 # Helpers (gerar certificado, formatação, etc.)
+│   └── app.js                 # Aplicativo Express
+│
+├── tests/                     # Testes com Jest ou outros
+├── .env
+├── .gitignore
+├── package.json
+└── README.md

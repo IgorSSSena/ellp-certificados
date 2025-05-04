@@ -1,0 +1,12 @@
+# Ignorar dependências
+node_modules/
+
+# Ambiente
+.env
+
+# Logs
+*.log
+
+# Outras pastas opcionais
+dist/
+coverage/
