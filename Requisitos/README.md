@@ -43,6 +43,12 @@ Foram implementadas as seguintes abordagens de teste:
 
 ---
 
+## 👀 Observação
+
+- O arquivo **"Diagrama_ER.png"** representa o nosso Diagrama Entidade-Relacionamento (ER), que ilustra como estamos planejando estruturar o sistema em termos de dados e relacionamentos entre as entidades.
+
+---
+
 📎 **Documentação completa**:  
 [Acesse aqui no Google Docs](https://docs.google.com/document/d/10xkb-wfnxJ5UmPuMDEX534wOmIGPnTKfLWVFZvSXmqA/edit?usp=sharing)
 
