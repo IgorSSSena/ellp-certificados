@@ -1,15 +1,10 @@
-// src/server.js
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const alunoRoutes = require('./src/routes/aluno.routes'); // ajuste o caminho
 
 app.use(express.json());
+app.use('/api', alunoRoutes); // endpoint: /api/alunos
 
-// Rota de teste
-app.get('/', (req, res) => {
-  res.send('Servidor rodando com sucesso!');
-});
-
-app.listen(PORT, () => {
-  console.log('Servidor backend rodando na porta ${PORT}');
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
 });
