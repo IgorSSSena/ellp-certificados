@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-     "dev": "nodemon src/server.js",
-  "test": "jest --runInBand"
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand"
   },
-  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +16,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
     "pg": "^8.15.6",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7"
@@ -27,8 +27,6 @@
     "supertest": "^7.1.0"
   },
   "jest": {
-  "testEnvironment": "node"
-}
-
-
+    "testEnvironment": "node"
+  }
 }
