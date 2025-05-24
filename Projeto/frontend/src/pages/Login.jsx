@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { login } from '../services/authService';
 import axios from 'axios';
+import '../styles/login.css';
+
 
 export default function Login() {
   const [user, setUser] = useState('');
@@ -38,27 +40,48 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin} style={{ maxWidth: '300px', margin: 'auto' }}>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Usuário"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        required
-        style={{ width: '100%', marginBottom: '10px' }}
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        style={{ width: '100%', marginBottom: '10px' }}
-      />
-      <button type="submit" disabled={loading} style={{ width: '100%' }}>
-        {loading ? 'Entrando...' : 'Entrar'}
-      </button>
-    </form>
+    <div className='loginContainer'>
+        <form onSubmit={handleLogin} className='loginForm'>
+            <div className='loginLogo'>
+                <img src="../../public/logo-navbar.png" alt="" />
+            </div>
+        
+            <div className='loginTitle'>
+                <h2>Bem vindo</h2>
+                <p>Bem-vindo ao sistema da ELLP!</p>
+            </div>
+        
+            <div>
+                <input
+                    type="text"
+                    placeholder="Usuário"
+                    value={user}
+                    onChange={(e) => setUser(e.target.value)}
+                    required
+                    style={{ width: '100%', marginBottom: '10px' }}
+                />  
+        
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    style={{ width: '100%', marginBottom: '10px' }}
+                />
+            </div>
+            
+        
+            <button type="submit" disabled={loading} style={{ width: '100%' }}>
+                {loading ? 'Entrando...' : 'Entrar'}
+            </button>
+        </form>
+
+        <div className='banner'>
+
+        </div>
+    </div>
+
+
   );
 }
