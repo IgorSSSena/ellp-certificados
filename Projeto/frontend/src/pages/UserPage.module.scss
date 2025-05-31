@@ -1,0 +1,76 @@
+@use "../../public/styles/Variables.scss" as *;
+
+.pageContainer {
+  padding: 0 $padding-base $padding-base $padding-base;
+  font-family: $font-family-base;
+  h1 {
+    font-size: $font-size-title;
+    font-weight: 600;
+    margin-bottom: $padding-small;
+  }
+}
+
+.containerWhite {
+  background-color: white;
+  padding: $padding-base;
+  border-radius: 16px;
+}
+.userInfo {
+  font-size: $font-size-small;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 12px;
+  justify-content: end;
+  p {
+    margin: 0;
+  }
+}
+
+.topBar {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  h1 {
+    margin: 0;
+  }
+
+  .searchInput {
+    padding: 0 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 250px;
+    font-size: 0.75em;
+    height: 30px;
+
+    font-family: $font-family-base;
+  }
+
+  .filterSelect {
+    padding: 0 8px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-size: 0.75em;
+
+    font-family: $font-family-base;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.pesquisaContainer {
+  display: flex;
+  width: 100%;
+  gap: $padding-small;
+  justify-content: end;
+}

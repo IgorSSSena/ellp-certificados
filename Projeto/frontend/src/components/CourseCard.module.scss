@@ -1,0 +1,79 @@
+// ✅ NOVO
+@use '../../public/styles/Variables.scss' as *;
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $background-light;
+  border: 2px solid $border-blue;
+  border-radius: $border-radius;
+  padding: $padding-small $padding-base;
+  margin-bottom: $padding-small;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.cardImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: $padding-base;
+}
+
+.cardContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h3 {
+    font-size: $font-size-subtitle;
+    margin: 0;
+    font-family: $font-family-base;
+  }
+
+  p {
+    margin: 4px 0;
+    color: $text-gray;
+    font-family: $font-family-base;
+  }
+
+  a {
+    font-size: $font-size-small;
+    color: $primary-blue;
+    text-decoration: underline;
+    margin-top: 4px;
+  }
+}
+
+.cardStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+
+  .inProgress {
+    color: $status-in-progress;
+    font-weight: 500;
+  }
+
+  .completed {
+    color: $status-completed;
+    font-weight: 500;
+  }
+
+  .certificateBtn {
+    background-color: $status-completed;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: $font-size-small;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $status-completed-hover;
+    }
+  }
+}
