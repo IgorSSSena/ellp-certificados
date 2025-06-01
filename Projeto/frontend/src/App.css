@@ -1,0 +1,10 @@
+#root {
+  margin: 0;
+  text-align: center;
+  height: 100%;
+}
+
+#AppContainer {
+  display: flex;
+  height: 100%;
+}

@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import UserPage from './pages/user_page.tsx'
 
-function App() {
+import Login from './pages/Login';
 
+
+function App() {
   return (
-  <UserPage />
-  )
+    <div id='AppContainer'>
+      <Login />
+    </div>
+  );
+
 }
 
 export default App

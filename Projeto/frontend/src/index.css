@@ -1,5 +1,36 @@
-body {
-  background-image: url('./assets/background.png');
-    background-size: cover;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* line-height: 1.5; */
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #333;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+body,html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+* {
+    box-sizing: border-box;
+}
+
+h2{
+  margin: 0;
+}
+
+p{
+  margin: 0;
+}
+
