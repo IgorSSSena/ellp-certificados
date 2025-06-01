@@ -1,9 +1,16 @@
 {
   "development": {
-    "username": "sql10779608",
-    "password": "R3LT9Z2qUi",
-    "database": "sql10779608",
-    "host": "sql10.freesqldatabase.com",
-    "dialect": "mysql"
+    "username": "ellproot",
+    "password": "utfpr#2025",
+    "database": "ellp",
+    "host": "ellpcert.mysql.database.azure.com",
+    "port": 3306,
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
