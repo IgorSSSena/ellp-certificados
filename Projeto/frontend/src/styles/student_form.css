@@ -1,0 +1,33 @@
+.studentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+.studentForm input[type="text"],
+.studentForm input[type="email"],
+.studentForm input[type="password"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.studentForm button {
+  background-color: #0B437A;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.studentForm button:hover {
+  background-color: #083360;
+}
+
+.cursosCheckboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
