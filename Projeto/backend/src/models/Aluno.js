@@ -7,9 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     nome_aluno: DataTypes.STRING,
     ra_aluno: DataTypes.INTEGER,
-    data_nascimento: DataTypes.DATE
+    data_nascimento: DataTypes.DATE, 
+    password: DataTypes.STRING,
   }, {
-    tableName: 'aluno',
+    tableName: 'Aluno',
     timestamps: false
   });
 

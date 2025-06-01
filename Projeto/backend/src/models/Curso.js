@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     qtd_horas: DataTypes.FLOAT,
     link_certificado: DataTypes.STRING
   }, {
-    tableName: 'curso',
+    tableName: 'Curso',
     timestamps: false
   });
 

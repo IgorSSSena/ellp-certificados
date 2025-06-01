@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     data_conclusao: DataTypes.DATE // <- nova coluna adicionada
   }, {
-    tableName: 'certificado',
+    tableName: 'Certificado',
     timestamps: false
   });
 
