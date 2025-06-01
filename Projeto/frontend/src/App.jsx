@@ -6,10 +6,9 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    // <div id='AppContainer'>
-    //   <Login />
-    // </div>
-    <UserPage/>
+    <div id='AppContainer'>
+      <Login />
+    </div>
   );
 
 }
