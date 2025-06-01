@@ -1,6 +1,6 @@
 import React from 'react';
 import CourseCard from './CourseCard';
-import styles from './CourseList.module.scss';
+import "../styles/course_list.css";
 
 type Course = {
   image: string;
@@ -50,7 +50,7 @@ const mockCourses: Course[] = [
 
 const CourseList: React.FC = () => {
   return (
-    <div className={styles.listContainer}>
+    <div className="listContainer">
       {mockCourses.map((course, index) => (
         <CourseCard key={index} {...course} />
       ))}
