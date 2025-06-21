@@ -1,8 +1,11 @@
 .pageContainer {
   padding: 0 16px 16px 16px;
-  font-family: 'Arial', sans-serif;
-  background-color: #0B437A;
+  font-family: "Arial", sans-serif;
+  background-color: #f9fafb;
+  width: 100%;
+  height: 100vh;
 }
+/* #027bcc; */
 
 .pageContainer h1 {
   font-size: 24px;
@@ -11,21 +14,38 @@
 }
 
 .containerWhite {
-  background-color: white;
-  padding: 16px;
+  padding: 16px 0px;
   border-radius: 16px;
 }
 
 .userInfo {
   font-size: 14px;
   color: white;
+  background-color: #027bcc;
   display: flex;
   flex-direction: row;
-  align-items: end;
   gap: 12px;
-  justify-content: end;
+  padding: 0 1em ;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.284);
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+  }
 }
 
+.left{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.logo {
+  img {
+    height: 3em;
+  }
+}
 .userInfo p {
   margin: 0;
 }
@@ -41,16 +61,18 @@
 
 .topBar h1 {
   margin: 0;
+  color: #333;
 }
 
-.topBar .searchInput {
+.searchInput {
   padding: 0 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 250px;
+  min-width: 250px;
+  width: 100%;
   font-size: 0.75em;
   height: 30px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .topBar .filterSelect {
@@ -62,7 +84,7 @@
   cursor: pointer;
   font-size: 0.75em;
   color: #000;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .topBar .avatar {
@@ -74,5 +96,7 @@
   display: flex;
   width: 100%;
   gap: 8px;
-  justify-content: start;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
