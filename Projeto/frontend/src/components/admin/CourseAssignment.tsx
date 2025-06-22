@@ -3,7 +3,10 @@ import { mockAlunos, mockCursos } from "./mockData";
 import { Curso } from "../../interface/Curso";
 
 const CourseManager: React.FC = () => {
-  const [cursos, setCursos] = useState<Curso[]>(mockCursos as Curso[]);
+const [cursos, setCursos] = useState<Curso[]>(mockCursos.map(curso => ({
+  ...curso,
+  status: curso.status || "andamento"
+})));
   const [titulo, setTitulo] = useState("");
   const [alunosSelecionados, setAlunosSelecionados] = useState<number[]>([]);
 
@@ -30,6 +33,13 @@ const CourseManager: React.FC = () => {
     setCursos(cursos.filter((curso) => curso.id !== cursoId));
   };
 
+  const handleFinalizarCurso = (id: number) => {
+  setCursos(cursos.map(curso =>
+    curso.id_curso === id ? { ...curso, status: "finalizado" } : curso
+  ));
+};
+
+
   return (
     <div className="courseManager">
       <h2>Gerenciar Cursos</h2>
@@ -54,6 +64,45 @@ const CourseManager: React.FC = () => {
           ))}
         </div>
         <button onClick={handleAddCurso}>Adicionar Curso</button>
+        {expanded === curso.id_curso && (
+    <div className="cursoDetalhes">
+      <table className="tabelaAlunos">
+        <thead>
+          <tr>
+            <th>Nome do Aluno</th>
+            <th>RA</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mockAlunos
+            .filter((a) => curso.alunos.includes(a.nome_aluno))
+            .map((aluno) => (
+              <tr key={aluno.aluno_id}>
+                <td>{aluno.nome_aluno}</td>
+                <td>{aluno.ra_aluno}</td>
+                <td>
+                  {curso.status === "finalizado" ? (
+                    <button className="btnCertificado">Gerar Certificado</button>
+                  ) : (
+                    <span>Curso em andamento</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+
+      {curso.status === "andamento" && (
+        <button className="btnFinalizar" onClick={(e) => {
+          e.stopPropagation();  // Para não fechar o expand ao clicar no botão
+          handleFinalizarCurso(curso.id_curso);
+        }}>
+          Finalizar Curso
+        </button>
+      )}
+    </div>
+  )}
       </div>
 
       <ul className="listaCursos">

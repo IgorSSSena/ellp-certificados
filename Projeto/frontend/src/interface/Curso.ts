@@ -3,5 +3,6 @@ export interface Curso {
   nome_curso: string;
   qtd_horas: number;
   link_certificado: string;
-  alunos: string[];
+  alunos: string[];  // Nome dos alunos
+  status?: "andamento" | "finalizado";
 }

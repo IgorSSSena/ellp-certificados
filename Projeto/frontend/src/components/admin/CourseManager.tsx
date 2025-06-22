@@ -1,4 +1,3 @@
-// src/components/admin/CourseManager.tsx
 import React, { useState } from "react";
 import { Curso } from "../../interface/Curso";
 import { Aluno } from "../../interface/Aluno";
@@ -6,15 +5,23 @@ import { mockAlunos, mockCursos } from "./mockData";
 import "../../styles/course_manager.css";
 
 const CourseManager: React.FC = () => {
-  const [cursos, setCursos] = useState<Curso[]>(mockCursos);
+  const [cursos, setCursos] = useState<Curso[]>(
+    mockCursos.map((curso) => ({
+      ...curso,
+      status: curso.status || "andamento", // Definir status padrão se não tiver
+    }))
+  );
+
   const [expanded, setExpanded] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+
   const [formData, setFormData] = useState<Curso>({
     id_curso: cursos.length + 1,
     nome_curso: "",
     qtd_horas: 0,
     link_certificado: "",
     alunos: [],
+    status: "andamento",
   });
 
   const toggleExpand = (id: number) => {
@@ -30,8 +37,17 @@ const CourseManager: React.FC = () => {
       qtd_horas: 0,
       link_certificado: "",
       alunos: [],
+      status: "andamento",
     });
     setModalOpen(false);
+  };
+
+  const handleFinalizarCurso = (id: number) => {
+    setCursos((prevCursos) =>
+      prevCursos.map((curso) =>
+        curso.id_curso === id ? { ...curso, status: "finalizado" } : curso
+      )
+    );
   };
 
   return (
@@ -40,6 +56,7 @@ const CourseManager: React.FC = () => {
         <h2>Cursos Cadastrados</h2>
         <button onClick={() => setModalOpen(true)}>Adicionar Curso</button>
       </div>
+
       <div className="gridCursos">
         {cursos.map((curso) => (
           <div
@@ -50,7 +67,27 @@ const CourseManager: React.FC = () => {
             <div className="cursoHeader">
               <span>{curso.nome_curso}</span>
               <span>{curso.qtd_horas} horas</span>
+
+              {curso.status === "andamento" ? (
+                <button
+                  className="btnFinalizar"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFinalizarCurso(curso.id_curso);
+                  }}
+                >
+                  Finalizar Curso
+                </button>
+              ) : (
+                <span>
+                  Status:{" "}
+                  <span style={{ color: "green", fontWeight: "bold" }}>
+                    Finalizado
+                  </span>
+                </span>
+              )}
             </div>
+
             {expanded === curso.id_curso && (
               <div className="cursoDetalhes">
                 <table className="tabelaAlunos">
@@ -69,9 +106,13 @@ const CourseManager: React.FC = () => {
                           <td>{aluno.nome_aluno}</td>
                           <td>{aluno.ra_aluno}</td>
                           <td>
-                            <button className="btnCertificado">
-                              Gerar Certificado
-                            </button>
+                            {curso.status === "finalizado" ? (
+                              <button className="btnCertificado">
+                                Gerar Certificado
+                              </button>
+                            ) : (
+                              <span>Curso em andamento</span>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -91,28 +132,42 @@ const CourseManager: React.FC = () => {
               type="text"
               placeholder="Nome do curso"
               value={formData.nome_curso}
-              onChange={(e) => setFormData({ ...formData, nome_curso: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, nome_curso: e.target.value })
+              }
               required
             />
             <input
               type="number"
               placeholder="Carga horária"
               value={formData.qtd_horas}
-              onChange={(e) => setFormData({ ...formData, qtd_horas: Number(e.target.value) })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  qtd_horas: Number(e.target.value),
+                })
+              }
               required
             />
             <input
               type="text"
               placeholder="Link para certificado"
               value={formData.link_certificado}
-              onChange={(e) => setFormData({ ...formData, link_certificado: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  link_certificado: e.target.value,
+                })
+              }
               required
             />
             <select
               multiple
               value={formData.alunos}
               onChange={(e) => {
-                const options = Array.from(e.target.selectedOptions).map((opt) => opt.value);
+                const options = Array.from(e.target.selectedOptions).map(
+                  (opt) => opt.value
+                );
                 setFormData({ ...formData, alunos: options });
               }}
             >
