@@ -4,46 +4,45 @@ import "../styles/user_page.css";
 // @ts-ignore
 import roboImage from "../assets/robo-livro.svg";
 import powerOff from "../assets/power_icon.svg";
-
-
-
+import logo from "../assets/logo.png";
 const UserPage: React.FC = () => {
   const [nome, setNome] = useState("");
   const [ra, setRa] = useState("");
 
   useEffect(() => {
-    const nomeUsuario = localStorage.getItem("nomeUsuario") || "Igor Sena";
+    const nomeUsuario = localStorage.getItem("nomeUsuario") || "Igor Silva Sena";
     const raUsuario = localStorage.getItem("ra") || "321323";
     setNome(nomeUsuario);
     setRa(raUsuario);
   }, []);
 
   return (
-    <div className="pageContainer">
+    <>
       <div className="userInfo">
-        <p>{nome} - {ra}</p>
-        <img src={powerOff} alt="Power off" />
-      </div>
-
-      <div className="containerWhite">
-        <div className="topBar">
-          <h1>Meus Cursos</h1>
-
-          <div className="pesquisaContainer">
-            <input
-              type="text"
-              placeholder="🔍 Pesquisar"
-              className="searchInput"
-            />
-            <select className="filterSelect">
-              <option>Filtros</option>
-            </select>
+        {" "}
+        <div className="left">
+          <div className="logo">
+            <img src={logo} alt="Logo" />
           </div>
+          Bem vindo a ELLP - Certificados
         </div>
-
-        <CourseList />
+        <div className="right">
+          <p>
+            {nome} - {ra}
+          </p>
+          <img src={powerOff} alt="Power off" />
+        </div>
       </div>
-    </div>
+      <div className="pageContainer">
+        <div className="containerWhite">
+          <div className="topBar">
+            <h1>Meus Certificados</h1>
+          </div>
+
+          <CourseList />
+        </div>
+      </div>
+    </>
   );
 };
 

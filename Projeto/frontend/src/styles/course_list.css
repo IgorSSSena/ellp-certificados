@@ -1,8 +1,92 @@
+.layout-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  padding-right: 20px;
+}
 
-.listContainer {
-  width: 100%;
+.layout-toggle-btn {
+  background-color: #002f6c;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.layout-toggle-btn:hover {
+  background-color: #004c99;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.list-container {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.course-summary {
+  display: flex;
+  gap: 16px;
   padding: 0;
-  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  flex: 1;
+  min-width: 150px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 8px;
+  height: 60px;
+  border: 1px solid #027bcc53;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.summary-card h2,
+.summary-card p {
+  color: #8a8a8a; /* Cinza padrão para inativos */
+}
+
+/* Quando o card estiver ativo */
+.summary-card.active {
+  opacity: 1;
+  border: 1px solid #027bcc;
+}
+
+/* Cor específica para cada status ativo */
+.summary-card.active.pendente h3 {
+  color: #919191;
+}
+
+.summary-card.active.total h3{
+  color: #333333;
+}
+
+.summary-card.active.concluido h3{
+  color: #F79336;
+}
+
+.summary-card h3{
+  color: #002f6c;
+  margin: 0 0 8px 0;
+}
+
+.summary-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0;
 }
