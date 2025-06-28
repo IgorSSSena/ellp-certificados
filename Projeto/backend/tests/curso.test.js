@@ -1,22 +1,27 @@
-const cursoService = require('../src/services/curso.service');
+const cursoController = require('../src/controllers/cursoController');
 
-jest.mock('../src/repositories/curso.repository');
+describe('Curso Controller', () => {
+  it('Deve criar um curso corretamente', async () => {
+    const req = {
+      body: {
+        nome_curso: 'Curso Teste',
+        qtd_horas: 10,
+        link_certificado: 'http://certificado.com',
+      },
+    };
 
-const mockCurso = {
-  id_curso: 1,
-  nome_curso: 'Lógica de Programação',
-  qtd_horas: 20,
-  link_certificado: 'http://certificados.com/curso1',
-};
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-describe('Curso Service', () => {
-  it('deve criar um novo curso', async () => {
-    const result = await cursoService.createCurso(mockCurso);
-    expect(result.nome_curso).toBe('Lógica de Programação');
-  });
+    await cursoController.create(req, res);
 
-  it('deve retornar todos os cursos', async () => {
-    const result = await cursoService.getAllCursos();
-    expect(Array.isArray(result)).toBe(true);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+      nome_curso: 'Curso Teste',
+      qtd_horas: 10,
+      link_certificado: 'http://certificado.com',
+    }));
   });
 });

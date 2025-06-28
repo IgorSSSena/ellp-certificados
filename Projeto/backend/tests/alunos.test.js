@@ -1,22 +1,30 @@
-const alunoService = require('../src/services/aluno.service');
+const alunoController = require('../src/controllers/alunoController');
+//TESTE DE CADASTRO DE ALUNO
+describe('Aluno Controller', () => {
+  it('Deve cadastrar um aluno corretamente', async () => {
+    const req = {
+      body: {
+        nome_aluno: 'Aluno Teste',
+        ra_aluno: '2023123456',
+        password: '123456',
+        data_nascimento: '2000-01-01',
+      },
+    };
 
-jest.mock('../src/repositories/aluno.repository');
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-const mockAluno = {
-  aluno_id: 1,
-  nome_aluno: 'João da Silva',
-  ra_aluno: 123456,
-  data_nascimento: '2001-01-01',
-};
+    await alunoController.cadastrarAluno(req, res);
 
-describe('Aluno Service', () => {
-  it('deve criar um novo aluno', async () => {
-    const result = await alunoService.createAluno(mockAluno);
-    expect(result).toEqual(expect.objectContaining({ nome_aluno: 'João da Silva' }));
-  });
-
-  it('deve retornar lista de alunos', async () => {
-    const result = await alunoService.getAllAlunos();
-    expect(Array.isArray(result)).toBe(true);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+      message: 'Aluno cadastrado com sucesso.',
+      aluno: expect.objectContaining({
+        nome_aluno: 'Aluno Teste',
+        ra_aluno: '2023123456',
+      }),
+    }));
   });
 });

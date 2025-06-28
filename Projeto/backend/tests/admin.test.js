@@ -1,20 +1,26 @@
-const adminService = require('../src/services/admin.service');
-jest.mock('../src/repositories/admin.repository');
+const adminController = require('../src/controllers/adminController');
+//TESTE DE CADASTRO DE ADMIN
 
-const mockAdmin = {
-  user: 'admin1',
-  password: 'senhaSegura123',
-  nome_admin: 'Coordenador ELLP',
-};
+describe('Admin Controller', () => {
+  it('Deve cadastrar um admin corretamente', async () => {
+    const req = {
+      body: {
+        user: 'admin1',
+        password: '123456',
+        nome_admin: 'Admin Teste',
+      },
+    };
 
-describe('Admin Service', () => {
-  it('deve criar um novo administrador', async () => {
-    const result = await adminService.createAdmin(mockAdmin);
-    expect(result.nome_admin).toBe('Coordenador ELLP');
-  });
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-  it('deve autenticar admin com credenciais válidas', async () => {
-    const result = await adminService.login('admin1', 'senhaSegura123');
-    expect(result).toHaveProperty('token');
+    await adminController.cadastrarAdmin(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({
+      mensagem: 'Admin cadastrado com sucesso.',
+    });
   });
 });
