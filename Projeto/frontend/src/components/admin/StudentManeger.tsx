@@ -1,19 +1,15 @@
-
-
-// src/components/admin/StudentManager.tsx
-import React, { useState } from "react";
-import { mockCursos, mockAlunos } from "./mockData";
+import React, { useState, useEffect } from "react";
+import { mockCursos } from "./mockData";
 import { Aluno } from "../../interface/Aluno";
+import api from "../../services/api"; // import api configurado com Axios
 import "../../styles/student_manager.css";
 
-
-
 const StudentManager: React.FC = () => {
-  const [alunos, setAlunos] = useState<Aluno[]>(mockAlunos);
+  const [alunos, setAlunos] = useState<Aluno[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [expandedAlunoId, setExpandedAlunoId] = useState<number | null>(null);
   const [formData, setFormData] = useState<Aluno>({
-    aluno_id: alunos.length + 1,
+    aluno_id: 0,
     nome_aluno: "",
     ra_aluno: "",
     data_nascimento: "",
@@ -21,18 +17,50 @@ const StudentManager: React.FC = () => {
     cursos: [],
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ✅ Carregar alunos da API ao iniciar
+  useEffect(() => {
+    const fetchAlunos = async () => {
+      try {
+        const response = await api.get('/alunos');
+        setAlunos(response.data);
+      } catch (err) {
+        console.error('Erro ao buscar alunos:', err);
+      }
+    };
+
+    fetchAlunos();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setAlunos([...alunos, formData]);
-    setFormData({
-      aluno_id: alunos.length + 2,
-      nome_aluno: "",
-      ra_aluno: "",
-      data_nascimento: "",
-      password: "",
-      cursos: [],
-    });
-    setModalOpen(false);
+
+    try {
+      const novoAluno = {
+        nome_aluno: formData.nome_aluno,
+        ra_aluno: formData.ra_aluno,
+        data_nascimento: formData.data_nascimento,
+        password: formData.password,
+      };
+
+      const response = await api.post('/alunos', novoAluno);
+      setAlunos([...alunos, response.data.aluno]); // adiciona o aluno cadastrado à lista
+
+      // Limpa formulário e fecha modal
+      setFormData({
+        aluno_id: 0,
+        nome_aluno: "",
+        ra_aluno: "",
+        data_nascimento: "",
+        password: "",
+        cursos: [],
+      });
+      setModalOpen(false);
+
+      alert('Aluno cadastrado com sucesso!');
+    } catch (err) {
+      console.error('Erro ao cadastrar aluno:', err);
+      alert('Erro ao cadastrar aluno.');
+    }
   };
 
   const toggleExpand = (alunoId: number) => {
@@ -45,11 +73,12 @@ const StudentManager: React.FC = () => {
         <h2>Alunos Cadastrados</h2>
         <button onClick={() => setModalOpen(true)}>Adicionar Aluno</button>
       </div>
+
       <div className="gridAlunos">
         {alunos.map((aluno) => {
-          const cursosDoAluno = aluno.cursos.map((cursoNome) =>
+          const cursosDoAluno = aluno.cursos?.map((cursoNome) =>
             mockCursos.find((c) => c.nome_curso === cursoNome)
-          ).filter(Boolean);
+          ).filter(Boolean) || [];
 
           return (
             <div key={aluno.aluno_id} className="alunoCard" onClick={() => toggleExpand(aluno.aluno_id)}>
@@ -57,7 +86,7 @@ const StudentManager: React.FC = () => {
                 <div className="alunoResumo">
                   <span><strong>{aluno.nome_aluno}</strong></span>
                   <span>RA: {aluno.ra_aluno}</span>
-                  <span>{aluno.cursos.length} curso(s) com certificado</span>
+                  <span>{aluno.cursos?.length || 0} curso(s) com certificado</span>
                 </div>
                 <span className="expandIcon">▶</span>
               </div>
@@ -128,20 +157,6 @@ const StudentManager: React.FC = () => {
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               required
             />
-            <select
-              multiple
-              value={formData.cursos}
-              onChange={(e) => {
-                const options = Array.from(e.target.selectedOptions).map((opt) => opt.value);
-                setFormData({ ...formData, cursos: options });
-              }}
-            >
-              {mockCursos.map((curso) => (
-                <option key={curso.id_curso} value={curso.nome_curso}>
-                  {curso.nome_curso}
-                </option>
-              ))}
-            </select>
             <button type="submit">Cadastrar</button>
             <button type="button" onClick={() => setModalOpen(false)}>
               Cancelar
