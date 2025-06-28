@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const alunoRoutes = require('./routes/alunoRoutes');
 const cursoRoutes = require('./routes/cursoRoutes');
+const certificadoRoutes = require('./routes/certificadoRoutes');
 
 app.use(cors({
   origin: 'http://localhost:5173'
@@ -18,6 +19,7 @@ app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', alunoRoutes);
 app.use('/cursos', cursoRoutes);
+app.use('/certificados', certificadoRoutes);
 
 
 module.exports = app;
