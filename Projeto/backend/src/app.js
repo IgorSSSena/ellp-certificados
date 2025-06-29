@@ -18,8 +18,8 @@ app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', alunoRoutes);
-app.use('/cursos', cursoRoutes);
-app.use('/certificados', certificadoRoutes);
+app.use('/api', cursoRoutes);
+app.use('/api', certificadoRoutes);
 
 
 module.exports = app;

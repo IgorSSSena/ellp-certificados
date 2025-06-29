@@ -26,6 +26,21 @@ const listarPorAluno = async (req, res) => {
   }
 };
 
+// ✅ Listar certificados de um curso específico (para vinculação)
+const listarPorCurso = async (req, res) => {
+  const { id_curso } = req.params;
+  try {
+    const certificados = await Certificado.findAll({
+      where: { id_curso },
+      include: [Aluno] // para retornar dados completos do aluno vinculado
+    });
+    res.json(certificados);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao listar certificados do curso.', detalhes: err.message });
+  }
+};
+
+
 // ✅ Criar certificados (individual ou massa)
 const criarCertificados = async (req, res) => {
   const { certificados } = req.body;
@@ -97,6 +112,7 @@ const deletarCertificado = async (req, res) => {
 module.exports = {
   listarCertificados,
   listarPorAluno,
+  listarPorCurso,
   criarCertificados,
   atualizarCertificado,
   deletarCertificado
