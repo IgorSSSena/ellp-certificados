@@ -8,10 +8,10 @@ const ensureAdmin = require('../middlewares/ensureAdmin');
 //router.use(authenticate);
 router.use(ensureAdmin);
 
-router.get('/', cursoController.findAll);
-router.get('/:id', cursoController.findById);
-router.post('/', cursoController.create);
-router.put('/:id', cursoController.update);
-router.delete('/:id', cursoController.delete);
+router.get('/cursos/', cursoController.findAll);
+router.get('/cursos/:id', cursoController.findById);
+router.post('/cursos/', cursoController.create);
+router.put('/cursos/:id', cursoController.update);
+router.delete('/cursos/:id', cursoController.delete);
 
 module.exports = router;
