@@ -6,12 +6,11 @@ const ensureAdmin = require('../middlewares/ensureAdmin');
 
 // Todas as rotas abaixo exigem autenticação e permissão de admin
 //router.use(authenticate);
-router.use(ensureAdmin);
 
-router.get('/cursos/', cursoController.findAll);
-router.get('/cursos/:id', cursoController.findById);
-router.post('/cursos/', cursoController.create);
-router.put('/cursos/:id', cursoController.update);
-router.delete('/cursos/:id', cursoController.delete);
+router.get('/cursos/', ensureAdmin, cursoController.findAll);
+router.get('/cursos/:id', ensureAdmin, cursoController.findById);
+router.post('/cursos/', ensureAdmin, cursoController.create);
+router.put('/cursos/:id', ensureAdmin, cursoController.update);
+router.delete('/cursos/:id', ensureAdmin, cursoController.delete);
 
 module.exports = router;
