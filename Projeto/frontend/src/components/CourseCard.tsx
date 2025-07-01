@@ -8,7 +8,6 @@ interface CourseCardProps {
   hours: number;
   status: "concluido" | "andamento";
   certificateUrl?: string;
-  imagem: string;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -17,7 +16,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
   hours,
   status,
   certificateUrl,
-  imagem,
 }) => {
   const isCompleted = status === "concluido";
 
@@ -31,7 +29,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
       </div>
 
       <div className="card-body">
-        <img src={imagem} alt={title} className="card-image" />
 
         <div className="card-info">
           <span>{title}</span>
@@ -55,7 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <div className="bottonDownload">
               {isCompleted && (
               <a href={certificateUrl} download className="download-button">
-                Download Certificate
+                Baixar Certificado
               </a>
             )}
           </div>
