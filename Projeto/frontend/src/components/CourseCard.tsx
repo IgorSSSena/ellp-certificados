@@ -1,6 +1,8 @@
 import React from "react";
 import "../styles/course_card.css";
 import { FaCheckCircle, FaRegClock } from "react-icons/fa";
+import api from "../services/api";
+
 
 interface CourseCardProps {
   title: string;
@@ -8,8 +10,8 @@ interface CourseCardProps {
   hours: number;
   status: "concluido" | "andamento";
   certificateUrl?: string;
-  imagem: string;
 }
+
 
 const CourseCard: React.FC<CourseCardProps> = ({
   title,
@@ -17,9 +19,23 @@ const CourseCard: React.FC<CourseCardProps> = ({
   hours,
   status,
   certificateUrl,
-  imagem,
 }) => {
   const isCompleted = status === "concluido";
+
+  const handleDownloadCertificate = async () => {
+  try {
+    const response = await api.post('/certificado/gerar-pdf', {
+      nome: studentName
+    }, { responseType: 'blob' });
+
+    const file = new Blob([response.data], { type: 'application/pdf' });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+  } catch (err) {
+    console.error('Erro ao gerar certificado:', err);
+    alert('Erro ao gerar certificado');
+  }
+};
 
   return (
     <div className="custom-card">
@@ -30,7 +46,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
       </div>
 
       <div className="card-body">
-        <img src={imagem} alt={title} className="card-image" />
 
         <div className="card-info">
           <span>{title}</span>
@@ -51,13 +66,13 @@ const CourseCard: React.FC<CourseCardProps> = ({
               )}
             </p>
 
-          <div className="bottonDownload">
+            <div className="bottonDownload">
               {isCompleted && (
-              <a href={certificateUrl} download className="download-button">
-                Download Certificate
+              <a onClick={handleDownloadCertificate} download className="download-button">
+                Baixar Certificado
               </a>
             )}
-          </div>
+            </div>
           </div>
         </div>
       </div>

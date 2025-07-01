@@ -3,15 +3,20 @@ const router = express.Router();
 const cursoController = require('../controllers/cursoController');
 //const authenticate = require('../middlewares/authenticate');
 const ensureAdmin = require('../middlewares/ensureAdmin');
+const authenticate = require('../middlewares/authenticate');
 
 // Todas as rotas abaixo exigem autenticação e permissão de admin
 //router.use(authenticate);
-router.use(ensureAdmin);
+
+// Rota para buscar cursos do aluno logado
+router.get('/cursos/aluno', authenticate, cursoController.findByAluno);
 
 router.get('/cursos/', cursoController.findAll);
 router.get('/cursos/:id', cursoController.findById);
-router.post('/cursos/', cursoController.create);
-router.put('/cursos/:id', cursoController.update);
-router.delete('/cursos/:id', cursoController.delete);
+
+
+router.post('/cursos/', ensureAdmin, cursoController.create);
+router.put('/cursos/:id', ensureAdmin, cursoController.update);
+router.delete('/cursos/:id', ensureAdmin, cursoController.delete);
 
 module.exports = router;

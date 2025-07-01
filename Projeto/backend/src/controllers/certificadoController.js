@@ -109,11 +109,48 @@ const deletarCertificado = async (req, res) => {
   }
 };
 
+const jsreport = require('jsreport-client')(
+  'https://davisantana.jsreportonline.net/', // URL do playground
+  'davisantana@alunos.utfpr.edu.br', // 🔑 substitua pelo seu email de login do playground
+  'davigalo123' // 🔑 substitua pela sua senha do playground
+);
+
+const gerarCertificadoPDF = async (req, res) => {
+  const { nome } = req.body;
+
+  try {
+    const result = await jsreport.render({
+      template: { name: 'certificadoellppdf' },
+      data: {
+        nome: "Davi Santana",
+        date: new Date().toLocaleDateString('pt-BR')
+      }
+    });
+    
+
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `inline; filename="certificado_${nome}.pdf"`,
+    });
+
+    console.log("RESULT:", result);
+
+    result.pipe(res);
+
+  } catch (err) {
+    console.error('Erro ao gerar PDF:', err);
+    res.status(500).json({ message: 'Erro ao gerar PDF', detalhes: err.message });
+  }
+};
+
+
 module.exports = {
   listarCertificados,
   listarPorAluno,
   listarPorCurso,
   criarCertificados,
   atualizarCertificado,
-  deletarCertificado
+  deletarCertificado,
+  gerarCertificadoPDF
 };

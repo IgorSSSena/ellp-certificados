@@ -11,22 +11,19 @@ const {
 
 const ensureAdmin = require('../middlewares/ensureAdmin');
 
-// ✅ Todas as rotas protegidas para admin
-router.use(ensureAdmin);
-
 // Listar todos
-router.get('/alunos', listarAlunos);
+router.get('/alunos', ensureAdmin, listarAlunos);
 
 // Buscar por ID
-router.get('/alunos/:id', buscarAlunoPorId);
+router.get('/alunos/:id', ensureAdmin, buscarAlunoPorId);
 
 // Cadastrar aluno
-router.post('/alunos', cadastrarAluno);
+router.post('/alunos', ensureAdmin, cadastrarAluno);
 
 // Atualizar aluno
-router.put('/alunos/:id', atualizarAluno);
+router.put('/alunos/:id', ensureAdmin, atualizarAluno);
 
 // Deletar aluno
-router.delete('/alunos/:id', deletarAluno);
+router.delete('/alunos/:id', ensureAdmin, deletarAluno);
 
 module.exports = router;

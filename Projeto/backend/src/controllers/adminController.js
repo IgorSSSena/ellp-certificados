@@ -9,7 +9,7 @@ const adminController = {
       // Verifica se já existe
       const existente = await Admin.findByPk(user);
       if (existente) {
-        return res.status(400).json({ mensagem: 'Usuário já cadastrado.' });
+        return res.status(409).json({ mensagem: 'Usuário já cadastrado.' }); // Alterado para 409
       }
 
       // Criptografa a senha
