@@ -69,20 +69,11 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
             <div className="bottonDownload">
               {isCompleted && (
-<<<<<<< HEAD
-              <a href={certificateUrl} download className="download-button">
+              <a onClick={handleDownloadCertificate} download className="download-button">
                 Baixar Certificado
               </a>
             )}
-          </div>
-=======
-                <button onClick={handleDownloadCertificate} className="download-button">
-                  Visualizar certificado
-                </button>
-              )}
             </div>
-
->>>>>>> 0ac4e384821d17d9031aa7605a7d11f08d5af2df
           </div>
         </div>
       </div>
