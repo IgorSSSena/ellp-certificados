@@ -122,7 +122,9 @@ const gerarCertificadoPDF = async (req, res) => {
     const result = await jsreport.render({
       template: { name: 'certificadoellppdf' },
       data: {
-        nome: "Davi Santana",
+        nome: nome,
+        nome_curso: req.body.nome_curso,
+        horas: req.body.horas,
         date: new Date().toLocaleDateString('pt-BR')
       }
     });

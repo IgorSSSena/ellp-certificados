@@ -27,7 +27,9 @@ const CourseCard: React.FC<CourseCardProps> = ({
   const handleDownloadCertificate = async () => {
   try {
     const response = await api.post('/certificado/gerar-pdf', {
-      nome: studentName
+      nome: studentName,
+      nome_curso: title,
+      horas: hours,
     }, { responseType: 'blob' });
 
     const file = new Blob([response.data], { type: 'application/pdf' });
