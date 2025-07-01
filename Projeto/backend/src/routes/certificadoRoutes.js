@@ -5,13 +5,13 @@ const certificadoController = require('../controllers/certificadoController');
 const ensureAdmin = require('../middlewares/ensureAdmin');
 
 // ✅ Listar todos os certificados (admin)
-router.get('/certificado/', ensureAdmin, certificadoController.listarCertificados);
+router.get('/certificado/',  certificadoController.listarCertificados);
 
 // ✅ Listar certificados de um aluno específico (admin ou futuramente autenticação aluno)
-router.get('/certificado/:id_aluno', ensureAdmin, certificadoController.listarPorAluno);
+router.get('/certificado/:id_aluno', certificadoController.listarPorAluno);
 
 // ✅ Listar certificados de um curso específico
-router.get('/certificado/curso/:id_curso', ensureAdmin, certificadoController.listarPorCurso);
+router.get('/certificado/curso/:id_curso',  certificadoController.listarPorCurso);
 
 // ✅ Criar certificados (individual ou em massa) (admin)
 router.post('/certificado/', ensureAdmin, certificadoController.criarCertificados);

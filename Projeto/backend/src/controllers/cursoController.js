@@ -25,6 +25,27 @@ exports.findById = async (req, res) => {
   }
 };
 
+// Buscar curso por ID do aluno logado
+exports.findByAluno = async (req, res) => {
+  try {
+    const alunoId = req.user.id; // id do aluno logado
+
+    const cursos = await db.Curso.findAll({
+      include: {
+        model: db.Certificado,
+        where: { id_aluno: alunoId },
+        required: true
+      }
+    });
+
+    res.json(cursos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao buscar cursos do aluno' });
+  }
+};
+
+
 // Criar novo curso
 exports.create = async (req, res) => {
   const { nome_curso, qtd_horas, link_certificado } = req.body;
