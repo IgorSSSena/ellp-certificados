@@ -16,6 +16,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "jsreport-client": "^1.2.1",
+    "libreoffice-convert": "^1.6.1",
     "mysql2": "^3.14.1",
     "pg": "^8.15.6",
     "pg-hstore": "^2.3.4",
