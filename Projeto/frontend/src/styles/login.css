@@ -10,7 +10,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     padding: 16px;
 }	
@@ -19,18 +19,20 @@
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
-    width: 60%;
+    width: 100%;
     height: 100%;
     padding: 0px 8em;
     gap: 24px;
 }
 
-.banner{
-    height: 100px;
-    background-color: #2794E3;
-    width: 40%;
-    height: 100%;
-    border-radius: 16px;
+.banner {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background-size: contain;         /* imagem inteira visível */
+  background-image: url('../assets/robo_login.png');
+  background-position: center;    /* centraliza a imagem */
+  background-repeat: no-repeat;   /* não repete a imagem */
 }
 
 .loginTitle{

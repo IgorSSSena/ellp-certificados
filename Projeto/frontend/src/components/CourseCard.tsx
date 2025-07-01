@@ -41,8 +41,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
     <div className="custom-card">
       <div className="card-header">
         <div className="card-icons">
-          <span className="icon minimize"></span>
-          <span className="icon close"></span>
+        
         </div>
       </div>
 
