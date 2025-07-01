@@ -3,17 +3,19 @@ import { Curso } from "../../interface/Curso";
 import { Aluno } from "../../interface/Aluno";
 import api from "../../services/api";
 import "../../styles/course_manager.css";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Chip from "@mui/material/Chip";
 
 const CourseManager: React.FC = () => {
   const [cursos, setCursos] = useState<Curso[]>([]);
   const [alunos, setAlunos] = useState<Aluno[]>([]);
   const [expanded, setExpanded] = useState<number | null>(null);
-  const [alunosCurso, setAlunosCurso] = useState<{ [key: number]: Aluno[] }>({});
+  const [alunosCurso, setAlunosCurso] = useState<{ [key: number]: Aluno[] }>(
+    {}
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedAlunos, setSelectedAlunos] = useState<number[]>([]);
@@ -28,19 +30,19 @@ const CourseManager: React.FC = () => {
   useEffect(() => {
     const fetchCursos = async () => {
       try {
-        const response = await api.get('/cursos');
+        const response = await api.get("/cursos");
         setCursos(response.data);
       } catch (err) {
-        console.error('Erro ao buscar cursos:', err);
+        console.error("Erro ao buscar cursos:", err);
       }
     };
 
     const fetchAlunos = async () => {
       try {
-        const response = await api.get('/alunos');
+        const response = await api.get("/alunos");
         setAlunos(response.data);
       } catch (err) {
-        console.error('Erro ao buscar alunos:', err);
+        console.error("Erro ao buscar alunos:", err);
       }
     };
 
@@ -56,12 +58,12 @@ const CourseManager: React.FC = () => {
         const response = await api.get(`/certificado/curso/${id}`);
         const alunosCertificados = response.data.map((cert: any) => cert.Aluno); // assumes API returns Aluno data
 
-        setAlunosCurso(prev => ({
+        setAlunosCurso((prev) => ({
           ...prev,
-          [id]: alunosCertificados
+          [id]: alunosCertificados,
         }));
       } catch (err) {
-        console.error('Erro ao buscar alunos do curso:', err);
+        console.error("Erro ao buscar alunos do curso:", err);
       }
 
       setExpanded(id);
@@ -85,7 +87,7 @@ const CourseManager: React.FC = () => {
       setEditMode(true);
       setModalOpen(true);
     } catch (err) {
-      console.error('Erro ao buscar certificados:', err);
+      console.error("Erro ao buscar certificados:", err);
     }
   };
 
@@ -101,14 +103,20 @@ const CourseManager: React.FC = () => {
         });
 
         // Atualizar vínculos de alunos
-        const response = await api.get(`/certificado/curso/${formData.id_curso}`);
+        const response = await api.get(
+          `/certificado/curso/${formData.id_curso}`
+        );
         const atuais = response.data.map((cert: any) => cert.id_aluno);
 
-
-        const remover = atuais.filter((id: number) => !selectedAlunos.includes(id));
+        const remover = atuais.filter(
+          (id: number) => !selectedAlunos.includes(id)
+        );
         const adicionar = selectedAlunos.filter((id) => !atuais.includes(id));
 
-        if (remover.length > 0 && window.confirm("Deseja remover alunos desse curso?")) {
+        if (
+          remover.length > 0 &&
+          window.confirm("Deseja remover alunos desse curso?")
+        ) {
           for (const id_aluno of remover) {
             await api.delete(`/certificado/${id_aluno}/${formData.id_curso}`);
           }
@@ -120,13 +128,13 @@ const CourseManager: React.FC = () => {
             id_aluno,
             esta_certificado: false,
             status: "Nao iniciado",
-            data_conclusao: null
+            data_conclusao: null,
           }));
 
-          await api.post('/certificado', { certificados: novosCertificados });
+          await api.post("/certificado", { certificados: novosCertificados });
         }
 
-        alert('Curso atualizado com sucesso!');
+        alert("Curso atualizado com sucesso!");
       } else {
         const novoCurso = {
           nome_curso: formData.nome_curso,
@@ -134,10 +142,10 @@ const CourseManager: React.FC = () => {
           link_certificado: formData.link_certificado,
         };
 
-        const response = await api.post('/cursos', novoCurso);
+        const response = await api.post("/cursos", novoCurso);
         setCursos([...cursos, response.data]);
 
-        alert('Curso cadastrado com sucesso!');
+        alert("Curso cadastrado com sucesso!");
       }
 
       setFormData({
@@ -153,19 +161,21 @@ const CourseManager: React.FC = () => {
 
       // 🔄 Recarrega alunos vinculados atualizados
       try {
-        const response = await api.get(`/certificado/curso/${formData.id_curso}`);
+        const response = await api.get(
+          `/certificado/curso/${formData.id_curso}`
+        );
         const alunosCertificados = response.data.map((cert: any) => cert.Aluno);
 
-        setAlunosCurso(prev => ({
+        setAlunosCurso((prev) => ({
           ...prev,
-          [formData.id_curso]: alunosCertificados
+          [formData.id_curso]: alunosCertificados,
         }));
       } catch (err) {
-        console.error('Erro ao atualizar alunos do curso após salvar:', err);
+        console.error("Erro ao atualizar alunos do curso após salvar:", err);
       }
     } catch (err) {
-      console.error('Erro ao salvar curso:', err);
-      alert('Erro ao salvar curso.');
+      console.error("Erro ao salvar curso:", err);
+      alert("Erro ao salvar curso.");
     }
   };
 
@@ -173,18 +183,20 @@ const CourseManager: React.FC = () => {
     <div className="courseManager">
       <div className="managerHeader">
         <h2>Cursos Cadastrados</h2>
-        <button onClick={() => {
-          setFormData({
-            id_curso: 0,
-            nome_curso: "",
-            qtd_horas: 0,
-            link_certificado: "",
-            alunos: [],
-          });
-          setSelectedAlunos([]);
-          setEditMode(false);
-          setModalOpen(true);
-        }}>
+        <button
+          onClick={() => {
+            setFormData({
+              id_curso: 0,
+              nome_curso: "",
+              qtd_horas: 0,
+              link_certificado: "",
+              alunos: [],
+            });
+            setSelectedAlunos([]);
+            setEditMode(false);
+            setModalOpen(true);
+          }}
+        >
           Adicionar Curso
         </button>
       </div>
@@ -217,7 +229,8 @@ const CourseManager: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {alunosCurso[curso.id_curso] && alunosCurso[curso.id_curso].length > 0 ? (
+                    {alunosCurso[curso.id_curso] &&
+                    alunosCurso[curso.id_curso].length > 0 ? (
                       alunosCurso[curso.id_curso].map((aluno) => (
                         <tr key={aluno.aluno_id}>
                           <td>{aluno.nome_aluno}</td>
@@ -245,46 +258,114 @@ const CourseManager: React.FC = () => {
               type="text"
               placeholder="Nome do curso"
               value={formData.nome_curso}
-              onChange={(e) => setFormData({ ...formData, nome_curso: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, nome_curso: e.target.value })
+              }
               required
             />
             <input
               type="number"
               placeholder="Carga horária"
               value={formData.qtd_horas}
-              onChange={(e) => setFormData({ ...formData, qtd_horas: Number(e.target.value) })}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Link para certificado"
-              value={formData.link_certificado}
-              onChange={(e) => setFormData({ ...formData, link_certificado: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, qtd_horas: Number(e.target.value) })
+              }
               required
             />
 
             {editMode && (
               <Autocomplete
                 multiple
+                disableClearable
                 options={alunos}
-                getOptionLabel={(option) => `${option.nome_aluno} (${option.ra_aluno})`}
-                value={alunos.filter(a => selectedAlunos.includes(a.aluno_id))}
+                getOptionLabel={(option) =>
+                  `${option.nome_aluno} (${option.ra_aluno})`
+                }
+                value={alunos.filter((a) =>
+                  selectedAlunos.includes(a.aluno_id)
+                )}
                 onChange={(event, newValue) => {
-                  setSelectedAlunos(newValue.map(a => a.aluno_id));
+                  setSelectedAlunos(newValue.map((a) => a.aluno_id));
                 }}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      {...getTagProps({ index })}
+                      label={`${option.nome_aluno} (${option.ra_aluno})`}
+                      key={option.aluno_id}
+                      style={{ margin: 4 }}
+                    />
+                  ))
+                }
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    label="Selecione alunos"
-                    placeholder="Alunos"
+                  <Autocomplete
+                    multiple
+                    disableClearable
+                    options={alunos}
+                    getOptionLabel={(option) =>
+                      `${option.nome_aluno} (${option.ra_aluno})`
+                    }
+                    value={alunos.filter((a) =>
+                      selectedAlunos.includes(a.aluno_id)
+                    )}
+                    onChange={(event, newValue) => {
+                      setSelectedAlunos(newValue.map((a) => a.aluno_id));
+                    }}
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          {...getTagProps({ index })}
+                          label={`${option.nome_aluno} (${option.ra_aluno})`}
+                          key={option.aluno_id}
+                          style={{ margin: 4 }}
+                        />
+                      ))
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        label="Selecione alunos"
+                        placeholder="Alunos"
+                        fullWidth
+                      />
+                    )}
+                    sx={{
+                      width: "100%",
+                      position: "relative",
+                      "& .MuiOutlinedInput-root": {
+                        display: "flex",
+                        flexDirection: "column-reverse",
+                        alignItems: "flex-start",
+                        paddingTop: "8px",
+                      },
+                      "& .MuiAutocomplete-inputRoot": {
+                        width: "100%",
+                      },
+                      "& .MuiAutocomplete-input": {
+                        width: "100%",
+                        minWidth: 0,
+                        flexGrow: 1,
+                      },
+                      "& .MuiAutocomplete-tag": {
+                        maxWidth: "100%",
+                      },
+                      "& .MuiAutocomplete-endAdornment": {
+                        position: "absolute", // ❗ torna posicionável
+                        top: 30, // ❗ alinha ao topo do input
+                        right: 8, // ❗ encosta no lado direito
+                        
+                      },
+                    }}
                   />
                 )}
+              
               />
             )}
 
-
-            <button type="submit">{editMode ? "Salvar alterações" : "Cadastrar"}</button>
+            <button type="submit">
+              {editMode ? "Salvar alterações" : "Cadastrar"}
+            </button>
             <button type="button" onClick={() => setModalOpen(false)}>
               Cancelar
             </button>

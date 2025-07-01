@@ -5,16 +5,24 @@ import "../styles/user_page.css";
 import roboImage from "../assets/robo-livro.svg";
 import powerOff from "../assets/power_icon.svg";
 import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 const UserPage: React.FC = () => {
   const [nome, setNome] = useState("");
   const [ra, setRa] = useState("");
+  const navigate = useNavigate(); // ← hook do react-router-dom
 
   useEffect(() => {
-    const nomeUsuario = localStorage.getItem("nomeUsuario") || "Igor Silva Sena";
+    const nomeUsuario =
+      localStorage.getItem("nomeUsuario") || "Igor Silva Sena";
     const raUsuario = localStorage.getItem("ra") || "321323";
     setNome(nomeUsuario);
     setRa(raUsuario);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear(); // Limpa tudo
+    navigate("/");
+  };
 
   return (
     <>
@@ -30,7 +38,13 @@ const UserPage: React.FC = () => {
           <p>
             {nome} - {ra}
           </p>
-          <img src={powerOff} alt="Power off" />
+          <img
+            src={powerOff}
+            alt="Sair"
+            onClick={handleLogout}
+            style={{ cursor: "pointer", width: "24px" }}
+            title="Sair do sistema"
+          />{" "}
         </div>
       </div>
       <div className="pageContainer">

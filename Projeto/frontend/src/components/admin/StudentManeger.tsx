@@ -157,36 +157,7 @@ const StudentManager: React.FC = () => {
                 </div>
               </div>
 
-              {expandedAlunoId === aluno.aluno_id && (
-                <div className="alunoDetalhes">
-                  <table className="tabelaCursos">
-                    <thead>
-                      <tr>
-                        <th>Curso</th>
-                        <th>Horas</th>
-                        <th>Certificado</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cursosDoAluno.map((curso) => (
-                        <tr key={curso!.id_curso}>
-                          <td>{curso!.nome_curso}</td>
-                          <td>{curso!.qtd_horas}</td>
-                          <td>
-                            <a
-                              href={curso!.link_certificado}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <button className="btnCertificado">Gerar Certificado</button>
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+             
             </div>
           );
         })}
@@ -198,7 +169,7 @@ const StudentManager: React.FC = () => {
             <h3>{editMode ? "Editar Aluno" : "Novo Aluno"}</h3>
             <input
               type="text"
-              placeholder="Nome do aluno"
+              placeholder="Nome do  "
               value={formData.nome_aluno}
               onChange={(e) => setFormData({ ...formData, nome_aluno: e.target.value })}
               required
