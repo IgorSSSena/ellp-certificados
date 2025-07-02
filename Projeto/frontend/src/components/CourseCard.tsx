@@ -10,6 +10,7 @@ interface CourseCardProps {
   hours: number;
   status: "concluido" | "andamento";
   certificateUrl?: string;
+  esta_certificado?: boolean;
 }
 
 
@@ -18,7 +19,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   studentName,
   hours,
   status,
-  certificateUrl,
+  esta_certificado,
 }) => {
   const isCompleted = status === "concluido";
 

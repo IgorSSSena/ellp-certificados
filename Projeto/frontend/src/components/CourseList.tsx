@@ -8,6 +8,11 @@ type Course = {
   nome_curso: string;
   qtd_horas: number;
   link_certificado?: string;
+  Certificados: [
+    {
+        esta_certificado: boolean;
+    }
+]
 };
 
 const CourseList: React.FC = () => {
@@ -22,6 +27,7 @@ const CourseList: React.FC = () => {
       try {
         const response = await api.get("/cursos/aluno");
         setCourses(response.data);
+        console.log("Cursos do aluno:", courses);
       } catch (error) {
         console.error("Erro ao buscar cursos do aluno:", error);
       }
@@ -104,6 +110,7 @@ const CourseList: React.FC = () => {
             studentName="Aluno" // Valor fixo ou ajuste futuro
             hours={course.qtd_horas}
             status="concluido" // Valor fixo, ajuste se backend enviar status real
+            esta_certificado={course.Certificados[0]?.esta_certificado || false} // Verifica se existe o certificado
             certificateUrl={course.link_certificado}
           />
         ))}
