@@ -88,7 +88,7 @@ const atualizarCertificado = async (req, res) => {
 
     await cert.save();
 
-    res.json({ message: 'Certificado atualizado com sucesso.', cert });
+    res.status(200).json({ message: 'Certificado atualizado com sucesso.', cert });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao atualizar certificado.', detalhes: err.message });
   }
@@ -103,7 +103,7 @@ const deletarCertificado = async (req, res) => {
     if (!cert) return res.status(404).json({ error: 'Certificado não encontrado.' });
 
     await cert.destroy();
-    res.json({ message: 'Certificado deletado com sucesso.' });
+    res.status(200).json({ message: 'Certificado deletado com sucesso.' });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao deletar certificado.', detalhes: err.message });
   }

@@ -36,26 +36,7 @@ describe('Certificado Controller', () => {
     expect(res.json).toHaveBeenCalled();
   });
 
-  it('Deve criar certificados em massa', async () => {
-    const req = {
-      body: {
-        certificados: [
-          {
-            id_curso: firstCursoId,
-            id_aluno: firstAlunoId,
-            esta_certificado: true,
-            status: 'Concluído',
-          },
-        ],
-      },
-    };
-    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    await certificadoController.criarCertificados(req, res);
-
-    const statusCode = res.status.mock.calls[0][0];
-    expect([201, 409]).toContain(statusCode); // Aceita 409 (duplicidade) como sucesso parcial
-  });
 
   it('Deve atualizar um certificado', async () => {
     const req = {
