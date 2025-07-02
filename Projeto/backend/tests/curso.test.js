@@ -4,7 +4,7 @@ describe('Curso Controller', () => {
   it('Deve criar um curso corretamente', async () => {
     const req = {
       body: {
-        nome_curso: 'Curso Teste',
+        nome_curso: 'Python para Ciência de Dados',
         qtd_horas: 10,
         link_certificado: 'http://certificado.com',
       },
@@ -19,7 +19,7 @@ describe('Curso Controller', () => {
 
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-      nome_curso: 'Curso Teste',
+      nome_curso: 'Python para Ciência de Dados',
       qtd_horas: 10,
       link_certificado: 'http://certificado.com',
     }));
