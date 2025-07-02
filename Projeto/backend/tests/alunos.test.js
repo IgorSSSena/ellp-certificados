@@ -5,7 +5,7 @@ describe('Aluno Controller', () => {
   it('Deve cadastrar um aluno corretamente ou retornar 409 se já existir', async () => {
     const req = {
       body: {
-        nome_aluno: 'Aluno Teste',
+        nome_aluno: 'Igor Sena',
         ra_aluno: '2023123456',
         password: '123456',
         data_nascimento: '2000-01-01',
@@ -28,7 +28,7 @@ describe('Aluno Controller', () => {
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
         message: 'Aluno cadastrado com sucesso.',
         aluno: expect.objectContaining({
-          nome_aluno: 'Aluno Teste',
+          nome_aluno: 'Igor Sena',
           ra_aluno: '2023123456',
         }),
       }));
