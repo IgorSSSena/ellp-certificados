@@ -34,7 +34,13 @@ exports.findByAluno = async (req, res) => {
       include: {
         model: db.Certificado,
         where: { id_aluno: alunoId },
-        required: true
+        required: true,
+         include: [
+            {
+              model: db.Aluno,
+              attributes: ['nome_aluno'] // trás apenas o nome do aluno
+            }
+          ]
       }
     });
 

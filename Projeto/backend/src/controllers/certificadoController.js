@@ -88,7 +88,7 @@ const atualizarCertificado = async (req, res) => {
 
     await cert.save();
 
-    res.status(200).json({ message: 'Certificado atualizado com sucesso.', cert });
+    res.json({ message: 'Certificado atualizado com sucesso.', cert });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao atualizar certificado.', detalhes: err.message });
   }
@@ -103,16 +103,16 @@ const deletarCertificado = async (req, res) => {
     if (!cert) return res.status(404).json({ error: 'Certificado não encontrado.' });
 
     await cert.destroy();
-    res.status(200).json({ message: 'Certificado deletado com sucesso.' });
+    res.json({ message: 'Certificado deletado com sucesso.' });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao deletar certificado.', detalhes: err.message });
   }
 };
 
 const jsreport = require('jsreport-client')(
-  'https://davisantana.jsreportonline.net/', // URL do playground
-  'davisantana@alunos.utfpr.edu.br', // 🔑 substitua pelo seu email de login do playground
-  'davigalo123' // 🔑 substitua pela sua senha do playground
+  'https://davisantana.jsreportonline.net/',
+  'davisantana@alunos.utfpr.edu.br',
+  'davigalo123'
 );
 
 const gerarCertificadoPDF = async (req, res) => {
@@ -122,7 +122,7 @@ const gerarCertificadoPDF = async (req, res) => {
     const result = await jsreport.render({
       template: { name: 'certificadoellppdf' },
       data: {
-        nome: nome,
+        nome: req.body.nome,
         nome_curso: req.body.nome_curso,
         horas: req.body.horas,
         date: new Date().toLocaleDateString('pt-BR')

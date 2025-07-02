@@ -21,7 +21,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   status,
   esta_certificado,
 }) => {
-  const isCompleted = status === "concluido";
+  const isCompleted = esta_certificado;
 
   const handleDownloadCertificate = async () => {
   try {

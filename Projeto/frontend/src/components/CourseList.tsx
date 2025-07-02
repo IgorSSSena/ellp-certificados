@@ -11,8 +11,11 @@ type Course = {
   Certificados: [
     {
         esta_certificado: boolean;
+        Aluno: {
+            nome_aluno: string;
+        }   
     }
-]
+  ]
 };
 
 const CourseList: React.FC = () => {
@@ -107,9 +110,9 @@ const CourseList: React.FC = () => {
           <CourseCard
             key={course.id_curso}
             title={course.nome_curso}
-            studentName="Aluno" // Valor fixo ou ajuste futuro
+            studentName={course.Certificados[0]?.Aluno?.nome_aluno}
             hours={course.qtd_horas}
-            status="concluido" // Valor fixo, ajuste se backend enviar status real
+            status="andamento" // Ajuste futuramente se backend retornar status
             esta_certificado={course.Certificados[0]?.esta_certificado || false} // Verifica se existe o certificado
             certificateUrl={course.link_certificado}
           />
